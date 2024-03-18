@@ -63,10 +63,17 @@ pip install opencv-python
 pip install pydub # https://github.com/jiaaro/pydub
 ```
 
+### compression ffmpeg (currently called from **frame_filter_mediapipe.py** script)
 
+```bash
+ffmpeg -i <input>.mp4 -vcodec libx264 -crf 23 <output>.mp4
+
+```
 
 ### NOTES: 
 Some faster alternatives : 
+
+[Streams api](https://pytube.io/en/latest/user/streams.html#downloading-streams) 
 
 [what are the steps to run the above python script on the windows os  ?](https://stackoverflow.com/questions/67521143/how-to-make-code-run-on-gpu-on-windows-10)
 
@@ -83,3 +90,7 @@ python script.py
 https://developer.nvidia.com/how-to-cuda-python
 
 
+
+### Testing: 
+See this vid https://www.youtube.com/watch?v=YpCcAyxj-Vg <br/>
+It didn't cut out few quite obvious frames for some reason

@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import time
 import sys
+import subprocess
+import shutil
 
 # Check if a filename was provided
 if len(sys.argv) < 2:
@@ -31,7 +33,7 @@ while cap.isOpened():
     start = time.time()
 
     if not success:
-        print("Ignoring empty camera frame.")
+        print("Reached empty camera frame.  Exiting...")
         break
 
     # Convert the BGR image to RGB
@@ -55,3 +57,14 @@ while cap.isOpened():
 
 cap.release()
 out.release()
+
+print("Compressing the edit_facetrim.mp4 ...")
+
+# Check if ffmpeg is installed
+if shutil.which("ffmpeg") is None:
+    print("ffmpeg is not installed. You can download it from https://www.ffmpeg.org/download.html")
+    sys.exit()
+    
+
+# Call the ffmpeg compression script on the output video
+subprocess.run(["ffmpeg", "-i", "edit_facetrim.mp4", "-vcodec", "libx264", "-crf", "23", "compressed_edit_facetrim.mp4"])
