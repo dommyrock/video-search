@@ -1,7 +1,5 @@
 # pip install ultralytics
 import cv2
-# import torch
-from pathlib import Path
 import sys
 from ultralytics import YOLO
 
