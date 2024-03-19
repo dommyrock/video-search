@@ -3,8 +3,6 @@ import cv2
 import sys
 from ultralytics import YOLO
 
-# THIS IS THE SCRIPT WHERE IM TRYING TO FILTER OUT DETECTED FRAMES With CLASSES / LABLES from yolo "detections" 
-
 if len(sys.argv) < 2:
     print("Usage: python script.py <video_file>")
     sys.exit()
@@ -23,9 +21,9 @@ while cap.isOpened():
         results = model(frame)
         person_detections = []
 
-        for result in results:  # Iterate through the results (there could be multiple objects detected)
+        for result in results:  
             for box in result.boxes:  # Iterate through the boxes in the current result
-                class_id = box.cls[0].item()  # Get the class ID
+                class_id = box.cls[0].item()  # Get the class ID / 0 = 'person'
                 conf = box.conf[0].item()  # Get the confidence
 
                 if class_id == 0 and conf >= 0.5:  # Filter based on the class ID and confidence
@@ -48,3 +46,6 @@ while cap.isOpened():
 # Release the video capture object and close the display window
 cap.release()
 cv2.destroyAllWindows()
+
+# all other possible classes 
+# https://www.freecodecamp.org/news/how-to-detect-objects-in-images-using-yolov8/
