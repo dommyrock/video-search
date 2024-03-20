@@ -5,6 +5,30 @@
 
 Script used for downloading video sources.
 
+## YOLOv8 scripts 
+Can be found in **/yolo** and **/yolo_sahi** directories 
+
+yolov8 models mostly require these deps
+```bash
+pip install opencv-python
+pip install ultralytics
+pip install sahi
+
+```
+
+Great post:<br/>
+[YOLOv8 object detection ](https://www.freecodecamp.org/news/how-to-detect-objects-in-images-using-yolov8/)
+
+[Ultralythics](https://docs.ultralytics.com/)
+[Ultralythics repo](https://github.com/ultralytics/ultralytics)
+[Supervision lib repo](https://github.com/roboflow/supervision)
+
+[Ultralytics models](https://docs.ultralytics.com/models/#featured-models)
+
+[yolov8 face detection PT weights examples](https://github.com/akanametov/yolov8-face/blob/dev/examples/tutorial.ipynb)
+
+## Mediapipe 
+
 - **frame_filter_mediapipe.py** (MOST EFFICIENT ONE AT THE MOMENT)
 
 A lot less heavy on the cpu and is faster.<br/>
