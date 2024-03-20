@@ -25,7 +25,13 @@ Great post:<br/>
 
 [Ultralytics models](https://docs.ultralytics.com/models/#featured-models)
 
-[yolov8 face detection PT weights examples](https://github.com/akanametov/yolov8-face/blob/dev/examples/tutorial.ipynb)
+[YOLOV8 face detection PT weights examples](https://github.com/akanametov/yolov8-face/blob/dev/examples/tutorial.ipynb)
+
+Running Yolov8 on GPU issues
+- https://github.com/ultralytics/ultralytics/issues/3084
+- https://github.com/ultralytics/ultralytics/issues/5059
+
+[My GPU example](https://github.com/dommyrock/video-search/blob/main/yolo/yolo_webcam_cuda.py)
 
 ## Mediapipe 
 
@@ -114,7 +120,12 @@ python script.py
 https://developer.nvidia.com/how-to-cuda-python
 
 
-
 ### Testing: 
 See this vid https://www.youtube.com/watch?v=YpCcAyxj-Vg <br/>
 It didn't cut out few quite obvious frames for some reason
+
+#### bash utils
+Move all files from current pwd to /yolo directory
+```bash
+find . -maxdepth 1 -type f -name "yolo_*" -exec mv {} yolo/ \;
+```
