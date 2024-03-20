@@ -28,9 +28,9 @@ frame_height = int(cap.get(4))
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
 out = cv2.VideoWriter('edit_facetrim.mp4', fourcc, fps, (frame_width, frame_height))
 
+start = time.time()
 while cap.isOpened():
     success, image = cap.read()
-    start = time.time()
 
     if not success:
         print("Reached empty camera frame.  Exiting...")
@@ -49,14 +49,17 @@ while cap.isOpened():
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         out.write(image)
 
-    end = time.time()
-    totalTime = end - start
-
     if cv2.waitKey(5) & 0xFF == 27:
         break
 
 cap.release()
 out.release()
+end = time.time()
+
+# Convert the total time to minutes and seconds
+totalTime = end - start
+minutes, seconds = divmod(totalTime, 60)
+print(f"Execution time: {minutes:.0f}:{seconds:.2f}")
 
 print("Compressing the edit_facetrim.mp4 ...")
 

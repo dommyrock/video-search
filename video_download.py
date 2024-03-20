@@ -13,7 +13,7 @@ yt = YouTube(href)
 
 # extact video metadata
 title = yt.title
-vid_len = round(yt.length / 60,2) # min
+vid_len = round(yt.length / 60) # min
 views =yt.views
 author= yt.author
 date = yt.publish_date
@@ -22,7 +22,7 @@ kw = yt.keywords
 print("Title: " + title)
 print("Author: " + author)
 print("Date: " + str(date))
-print("Video len: " + str(vid_len) + "min")  # Convert vid_len to string
+print("Video len: {}min {}sec".format(vid_len, yt.length % 60))
 print("Views: " + str(views))
 print("KW: " + str(kw))
 
@@ -32,5 +32,7 @@ stream = yt.streams.filter(progressive=True, file_extension='mp4').get_by_resolu
 #or
 # Filter the streams to get the highest resolution progressive stream
 # stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+
+# or don't use streams and get the minimum quality (use it for filtering  and getting the metadata, than search on FHD vid)
 
 stream.download()
