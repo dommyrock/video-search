@@ -2,19 +2,18 @@ import cv2
 import mediapipe as mp
 import time
 import sys
-import subprocess
-import shutil
 
 # Check if a filename was provided
 if len(sys.argv) < 2:
     print("Usage: python script.py <video_file>")
     sys.exit()
 
-# Get the video filename from the command-line arguments
+# Get video input from args
 video_file = sys.argv[1]
 
 # Create instances of the FaceDetection and DrawingUtils classes
-face_detection = mp.solutions.face_detection.FaceDetection(min_detection_confidence=0.5)
+face_detection = mp.solutions.face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.1)
+mp_drawing = mp.solutions.drawing_utils
 
 # Open the video file
 cap = cv2.VideoCapture(video_file)
@@ -30,44 +29,40 @@ out = cv2.VideoWriter('edit_facetrim.mp4', fourcc, fps, (frame_width, frame_heig
 
 start = time.time()
 while cap.isOpened():
-    success, image = cap.read()
-
+    success, frame = cap.read()
+    
     if not success:
         print("Reached empty camera frame.  Exiting...")
         break
 
     # Convert the BGR image to RGB
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     # To improve performance, mark the image as not writeable to pass by reference
-    image.flags.writeable = False
-    results = face_detection.process(image)
+    frame.flags.writeable = False
+    results = face_detection.process(frame)
+    
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    if results.detections:
+      for detection in results.detections:
+        mp_drawing.draw_detection(frame, detection)
 
     # If no faces are detected, write the frame to the new video file
     if not results.detections:
-        # Convert the RGB image back to BGR
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        out.write(image)
+        out.write(frame)
 
+    # Flip the image horizontally for a selfie-view display.
+    cv2.imshow('MediaPipe Face Detection', frame)
+    
     if cv2.waitKey(5) & 0xFF == 27:
         break
 
 cap.release()
 out.release()
+cv2.destroyAllWindows()
 end = time.time()
 
 # Convert the total time to minutes and seconds
 totalTime = end - start
 minutes, seconds = divmod(totalTime, 60)
 print(f"Execution time: {minutes:.0f}:{seconds:.2f}")
-
-print("Compressing the edit_facetrim.mp4 ...")
-
-# Check if ffmpeg is installed
-if shutil.which("ffmpeg") is None:
-    print("ffmpeg is not installed. You can download it from https://www.ffmpeg.org/download.html")
-    sys.exit()
-    
-
-# Call the ffmpeg compression script on the output video
-subprocess.run(["ffmpeg", "-i", "edit_facetrim.mp4", "-vcodec", "libx264", "-crf", "23", "compressed_edit_facetrim.mp4"])
