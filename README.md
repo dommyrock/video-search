@@ -33,6 +33,11 @@ Running Yolov8 on GPU issues
 
 [My GPU example](https://github.com/dommyrock/video-search/blob/main/yolo/yolo_webcam_cuda.py)
 
+### Similarity search and frame filtering 
+   Has to be done on linux env since 'faiss-gpu' from 'pip install transformers faiss-gpu torch Pillow' fails on windows
+   
+   https://medium.com/aimonks/image-similarity-with-dinov2-and-faiss-741744bc5804
+
 ## Mediapipe 
 
 - **frame_filter_mediapipe.py** (MOST EFFICIENT ONE AT THE MOMENT)
