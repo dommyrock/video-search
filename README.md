@@ -36,7 +36,36 @@ Running Yolov8 on GPU issues
 ### Similarity search and frame filtering 
    Has to be done on linux env since 'faiss-gpu' from 'pip install transformers faiss-gpu torch Pillow' fails on windows
    
+   [DINOv2 model card](https://github.com/facebookresearch/dinov2/blob/main/MODEL_CARD.md)
+
+   Examples --> **/similarity** (both with **torchvision** and **transformers** API)
+
+   > Note: 'opencv-python' also had few other requirements after pip install 'opencv-python' > [Open Cv Requirements](https://stackoverflow.com/questions/55313610/importerror-libgl-so-1-cannot-open-shared-object-file-no-such-file-or-directo)
+   
+   In my case this cmd helped on linux
+   ```bash
+   sudo apt-get update && sudo apt-get install -y python3-opencv
+   ```
+   Refs:
    https://medium.com/aimonks/image-similarity-with-dinov2-and-faiss-741744bc5804
+
+OpenCV vs Torchvision:
+
+OpenCV (Open Source Computer Vision Library):
+
+- OpenCV is a highly optimized library with a focus on real-time applications.
+- It supports a wide variety of image and video file formats.
+- OpenCV provides functions for image and video processing such as filtering, geometric transformations, color space manipulation, object detection, and much more.
+It also includes algorithms for machine learning, computer vision, and artificial intelligence.
+- OpenCV is compatible with many languages such as Python, C++, and Java, and can be used on different platforms including Windows, Linux, OS X, Android, and iOS.
+
+Torchvision:
+- Torchvision is a part of the PyTorch project, designed specifically for computer vision tasks.
+- It provides utilities for efficiently loading and preprocessing image and video datasets, which can be very useful for training machine learning models.
+- Torchvision also includes a number of pre-trained models for tasks such as image classification, object detection, and semantic segmentation.
+- If you’re already using PyTorch for your project, using Torchvision can make a lot of sense because of the seamless integration between the two.
+
+> In the context of processing video frames, both libraries can be suitable. If you’re simply looking to extract frames from a video, apply some basic transformations, and save the results, OpenCV might be the more straightforward choice. If you’re planning to use the frames as input to a machine learning model, especially one built with PyTorch, Torchvision could be more convenient.
 
 ## Mediapipe 
 
@@ -133,4 +162,16 @@ It didn't cut out few quite obvious frames for some reason
 Move all files from current pwd to /yolo directory
 ```bash
 find . -maxdepth 1 -type f -name "yolo_*" -exec mv {} yolo/ \;
+```
+
+Copy local windows dir to pwd in wsl2 Ubuntu
+```bash
+cp -r /mnt/c/Users/dpolzer/Me/Git/video-search/frames .
+```
+
+Check img file count inside "frames" dir
+```bash
+ls -1 frames | wc -l
+# exclude nested directories if ther are any
+ls -1 frames | grep -v / | wc -l
 ```
