@@ -19,8 +19,10 @@ pip install sahi
 Great post:<br/>
 [YOLOv8 object detection ](https://www.freecodecamp.org/news/how-to-detect-objects-in-images-using-yolov8/)
 
-[Ultralythics](https://docs.ultralytics.com/)
-[Ultralythics repo](https://github.com/ultralytics/ultralytics)
+[Ultralytics](https://docs.ultralytics.com/)
+
+[Ultralytics repo](https://github.com/ultralytics/ultralytics)
+
 [Supervision lib repo](https://github.com/roboflow/supervision)
 
 [Ultralytics models](https://docs.ultralytics.com/models/#featured-models)
@@ -33,6 +35,7 @@ Running Yolov8 on GPU issues
 
 [My GPU example](https://github.com/dommyrock/video-search/blob/main/yolo/yolo_webcam_cuda.py)
 
+---
 ### Similarity search and frame filtering 
    Has to be done on linux env since 'faiss-gpu' from 'pip install transformers faiss-gpu torch Pillow' fails on windows
    
@@ -46,9 +49,10 @@ Running Yolov8 on GPU issues
    ```bash
    sudo apt-get update && sudo apt-get install -y python3-opencv
    ```
-   Refs:
-   https://medium.com/aimonks/image-similarity-with-dinov2-and-faiss-741744bc5804
+   
+   [image-similarity-with-dinov2-and-faiss](https://medium.com/aimonks/image-similarity-with-dinov2-and-faiss-741744bc5804)
 
+---
 OpenCV vs Torchvision:
 
 OpenCV (Open Source Computer Vision Library):
@@ -67,6 +71,7 @@ Torchvision:
 
 > In the context of processing video frames, both libraries can be suitable. If you’re simply looking to extract frames from a video, apply some basic transformations, and save the results, OpenCV might be the more straightforward choice. If you’re planning to use the frames as input to a machine learning model, especially one built with PyTorch, Torchvision could be more convenient.
 
+---
 ## Mediapipe 
 
 - **frame_filter_mediapipe.py** (MOST EFFICIENT ONE AT THE MOMENT)
@@ -90,7 +95,7 @@ There are other scripts taht use Haar algo for face detection:timestamps_haar.py
 ```bash
 python timestamps.py <video.mp4>
 #or
-python ts_all_haargit init.py <video.mp4>
+python ts_all_haar_init.py <video.mp4>
 ```
 
 --- 
